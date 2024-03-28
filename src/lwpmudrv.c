@@ -7561,7 +7561,11 @@ lwpmu_Load(VOID)
 	/* Register the file operations with the OS */
 
 #if !defined(DRV_UDEV_UNAVAILABLE)
+    #if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 5, 0)
+	pmu_class = class_create(SEP_DRIVER_NAME);
+    #else
 	pmu_class = class_create(THIS_MODULE, SEP_DRIVER_NAME);
+    #endif
 	if (IS_ERR(pmu_class)) {
 		SEP_DRV_LOG_ERROR("Error registering SEP control class!");
 	}

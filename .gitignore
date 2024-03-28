@@ -1,0 +1,14 @@
+*.mod
+*.o.cmd
+*.o
+*.o.d
+*.cmd
+*.ko
+*.og
+autoconf*
+*errors.txt
+src/socwatch/drivers/
+*.symversA
+*.mod.c
+*.symvers
+*.order

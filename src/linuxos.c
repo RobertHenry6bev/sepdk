@@ -363,8 +363,14 @@ linuxos_Map_Kernel_Modules(void)
 		char *name = current_module->name;
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 5, 0) || \
 	defined(SEP_CONFIG_MODULE_LAYOUT)
+            #if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 5, 0)
+                const struct module_memory *mod_mem_core_text = &current_module->mem[MOD_TEXT];
+		addr = (unsigned long)mod_mem_core_text->base;
+		size = mod_mem_core_text->size;
+            #else
 		addr = (unsigned long)current_module->core_layout.base;
 		size = current_module->core_layout.size;
+            #endif
 #else
 		addr = (unsigned long)current_module->module_core;
 		size = current_module->core_size;

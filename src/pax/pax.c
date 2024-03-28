@@ -859,7 +859,11 @@ pax_Load(VOID)
 	}
 
 #if !defined(DRV_UDEV_UNAVAILABLE)
+    #if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 5, 0)
+	pax_class = class_create("pax");
+    #else
 	pax_class = class_create(THIS_MODULE, "pax");
+    #endif
 	if (IS_ERR(pax_class)) {
 		PAX_PRINT_ERROR("Error registering pax class\n");
 	}
